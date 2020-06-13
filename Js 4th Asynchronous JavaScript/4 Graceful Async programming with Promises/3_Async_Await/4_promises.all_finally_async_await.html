@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <title>My test page</title>
+</head>
+
+<body>
+    <h1>Promise.all() in action</h1>
+    <script>
+        //below is the promise.all syntax
+        /*
+        
+        let a = fetch(url1);
+        let b = fetch(url2);
+        let c = fetch(url3);
+
+        Promise.all([a, b, c]).then(values => {
+        ...
+        });
+        
+        */
+
+        //function that return the promise
+        async function fetch_and_decode(url, type) {
+            try {
+                let response = await fetch(url);
+                let content;
+                if (!response.ok) {
+                    throw new Error(`HTTP Error occurred, have a look at console ${response.status}`);
+                } else {
+                    if (type === "blob") {
+                        content = await response.blob();
+                    } else if (type === "text") {
+                        content = await response.text();
+                    }
+                    return content;
+                }
+            }
+            //NOTE: We can alo use .finally(), like below line, in this TRY,CATCH method
+            finally {
+                console.log(`fetch attempt for "${url}" finished.`);
+            };
+
+        }
+
+        async function proceed() {
+            //define all the url,types in a variable
+            let coffee = fetch_and_decode("./img/coffee.jpg", "blob");
+            let tea = fetch_and_decode("./img/tea.jpg", "blob");
+            let text_file = fetch_and_decode("./description.txt", "text");
+
+            //use promise.all()
+            let values = await Promise.all([coffee, tea, text_file]);
+            console.log(values);
+
+            let obj_img_1 = URL.createObjectURL(values[0]);
+            let obj_img_2 = URL.createObjectURL(values[1]);
+            let obj_txt_3 = values[2];
+
+            let img_1 = document.createElement("img");
+            img_1.src = obj_img_1;
+            document.body.appendChild(img_1);
+
+            let img_2 = document.createElement("img");
+            img_2.src = obj_img_2;
+            document.body.appendChild(img_2);
+
+            let para = document.createElement("p");
+            para.textContent = obj_txt_3;
+            document.body.appendChild(para);
+        }
+
+        proceed().catch((e) => console.log(e));
+    </script>
+</body>
+
+</html>

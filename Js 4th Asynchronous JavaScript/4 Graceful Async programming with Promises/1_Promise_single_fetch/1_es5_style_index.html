@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <title>My test page</title>
+</head>
+
+<body>
+    <h1>This is my page- es5 style</h1>
+    <script>
+        //es5 way
+        let promise = fetch("./img/coffee.jpg");
+        let promise2 = promise.then(function(response) {
+            if (!response.ok) {
+                throw new Error(`Sorry,check the URL ${response.status}`);
+            } else {
+                return response.blob();
+                console.log("Blob response is success");
+            }
+        });
+        let promise3 = promise2.then(function(blob) {
+            let objectURL = URL.createObjectURL(blob);
+            let image = document.createElement("img");
+            image.src = objectURL;
+            document.body.appendChild(image);
+            console.log("Blob image displayed, check image's name by right-clicking it");
+        });
+        let catch_err = promise3.catch(function(e) {
+            console.log(`No, we got an error,check the url ${e.message}`);
+        });
+    </script>
+</body>
+
+</html>

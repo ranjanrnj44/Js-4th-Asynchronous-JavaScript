@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <title>Person greeter app</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <h1>What's the time DUDE?</h1>
+
+    <h2>
+
+    </h2>
+
+    <script>
+        let h2 = document.querySelector("h2");
+        h2.textContent = " ";
+
+        function Fun() {
+            let date = new Date();
+            let time = date.toLocaleTimeString();
+            h2.textContent = time;
+        }
+
+        let x = setInterval(Fun, 1000);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <title>Person greeter app</title>
+    <style>
+        form {
+            width: 300px;
+        }
+        
+        div {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        button {
+            width: 120px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Give someone a greeting!</h1>
+    <form>
+        <div>
+            <label for="name">Enter a name:</label>
+            <input type="name" required />
+        </div>
+        <div>
+            <button class="start">Greet!</button>
+        </div>
+    </form>
+
+    <p><button class="stop">Cancel greeting</button></p>
+
+    <script>
+        let form = document.querySelector("form");
+        let iput = document.querySelector("input");
+        let btn1 = document.querySelector(".start");
+        let btn2 = document.querySelector(".stop");
+
+        iput.focus();
+
+        function Fun(name) {
+            console.log("started");
+            alert(`Hi, ${name}`);
+        }
+
+        let x;
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            x = setTimeout(Fun, 3000, iput.value);
+        });
+
+        btn2.addEventListener("click", () => {
+            clearTimeout(x);
+            iput.focus();
+            console.log("cancelled");
+        });
+    </script>
+</body>
+
+</html>

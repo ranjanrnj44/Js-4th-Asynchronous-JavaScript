@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <title>My test page</title>
+</head>
+
+<body>
+    <h1>Async / Await in es6 style, foundation is promises(it is must)</h1>
+    <script>
+        //es5 way - Promises
+        // fetch("./img/coffee.jpg")
+        //     .then(response => {
+        //         if (!response.ok) {
+        //             throw new Error(`Sorry,check the URL ${response.status}`);
+        //         } else {
+        //             return response.blob();
+        //             console.log("Blob response is success");
+        //         }
+        //     })
+        //     .then(blob => {
+        //         let objectURL = URL.createObjectURL(blob);
+        //         let image = document.createElement("img");
+        //         image.src = objectURL;
+        //         document.body.appendChild(image);
+        //         console.log("Blob image displayed, check image's name by right-clicking it");
+        //     })
+        //     .catch(e => {
+        //         console.log(`No, we got an error,check the url ${e.message}`);
+        //     });
+
+        //es6 way - Async/Await
+        async function start() {
+            let response = await fetch("./img/coffee.jpg");
+            if (!response.ok) {
+                console.log(`Check the URL ${response.status}`);
+            } else {
+                let myblob = await response.blob();
+
+                let BLOBimage = URL.createObjectURL(myblob);
+                let image = document.createElement("img");
+                image.src = BLOBimage;
+                document.body.appendChild(image);
+            }
+        }
+
+        //for errors
+        start().catch((err) => console.log(`There is an error occured ${err}`));
+
+        //(or) you could refactor your code to use a hybrid approach of promises and await
+
+        async function start() {
+            let response = await fetch("./img/coffee.jpg");
+            if (!response.ok) {
+                console.log(`Check the URL ${response.status}`);
+            } else {
+                return await response.blob();
+            }
+        }
+        start().then((blob) => {
+                let BLOBimage = URL.createObjectURL(blob);
+                let image = document.createElement("img");
+                image.src = BLOBimage;
+                document.body.appendChild(image);
+            })
+            .catch((err) => console.log(`There is an error occured ${err}`));
+    </script>
+</body>
+
+</html>

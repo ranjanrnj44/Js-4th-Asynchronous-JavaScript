@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <title>My test page</title>
+</head>
+
+<body>
+    <h1>Async / Await ERROR HANDLING, foundation is promises(it is must)</h1>
+    <script>
+        async function start() {
+            try {
+                let response = await fetch("./img/coffee.jpg");
+                if (!response.ok) {
+                    console.log(`${response.status} Error occured, check the URL`);
+                } else {
+                    let myblob = await response.blob();
+                    let BLOBimage = URL.createObjectURL(myblob);
+                    let image = document.createElement("img");
+                    image.src = BLOBimage;
+                    document.body.appendChild(image);
+                }
+            } catch (err) {
+                console.log(`Status : ${err}`);
+            }
+        }
+
+        //calling function
+        start();
+
+        //(or)
+
+        async function start() {
+            let response = await fetch("./img/coffee.jpg");
+            if (!response.ok) {
+                console.log(`${response.status} Error occured, check the URL`);
+            } else {
+                return await response.blob();
+            }
+        }
+        start().then((blob) => {
+                let BLOBimage = URL.createObjectURL(blob);
+                let image = document.createElement("img");
+                image.src = BLOBimage;
+                document.body.appendChild(image);
+            })
+            .catch((err) => {
+                console.log(`Status : ${err}`);
+            });
+
+
+        //calling function
+        start();
+    </script>
+</body>
+
+</html>

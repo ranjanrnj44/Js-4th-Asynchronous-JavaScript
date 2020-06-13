@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+    <script>
+        function load_data(url, type, callback) {
+            let request = new XMLHttpRequest();
+            request.open("GET", url);
+            request.responseType = type;
+            request.send();
+
+            request.onload = function() {
+                let myresponse = request.response;
+                callback(myresponse);
+            };
+        }
+
+        function get_data(blob) {
+            let img_url = URL.createObjectURL(blob);
+
+            let image = document.createElement("img");
+            image.src = img_url;
+            document.body.appendChild(image);
+        }
+        load_data("./img/Flag.jpg", "blob", get_data);
+
+
+
+
+
+        // function loadAsset(url, type, callback) {
+        //     let xhr = new XMLHttpRequest();
+        //     xhr.open('GET', url);
+        //     xhr.responseType = type;
+
+        //     xhr.onload = function() {
+        //         callback(xhr.response);
+        //     };
+
+        //     xhr.send();
+        // }
+
+        // function displayImage(blob) {
+        //     let objectURL = URL.createObjectURL(blob);
+
+        //     let image = document.createElement('img');
+        //     image.src = objectURL;
+        //     document.body.appendChild(image);
+        // }
+
+        // loadAsset('./img/Flag.jpg', 'blob', displayImage);
+    </script>
+</body>
+
+</html>
